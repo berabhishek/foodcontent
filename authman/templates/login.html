@@ -9,7 +9,7 @@
     <link defer rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
     <link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.indigo-purple.min.css" />
     <script defer src="https://code.getmdl.io/1.3.0/material.min.js"></script>
-    <title>Break My Food - Login</title>
+    <title>{{request.user }} Break My Food - Login</title>
 </head>
 
 <body>
@@ -20,15 +20,34 @@
             <div class="mdl-layout__header-row">
                 <!-- Title -->
                 <span class="mdl-layout-title">Break My Food</span>
+                <div class="mdl-layout-spacer"></div>
+                <!-- Navigation. We hide it in small screens. -->
+                {% if not request.user.is_anonymous %}
+                <nav class="mdl-navigation mdl-layout--large-screen-only">
+                    <a class="mdl-navigation__link" href="{% url 'logout' %}">
+                        <i class="material-icons">directions_run</i>
+                        Logout
+                    </a>
+                </nav>
+                {% endif %}
             </div>
+          
             <!-- Tabs -->
             <div class="mdl-layout__tab-bar mdl-js-ripple-effect">
-                <a href="#fixed-tab-1" class="mdl-layout__tab is-active">Authentication</a>
-                <a href="#fixed-tab-3" class="mdl-layout__tab">View My Food</a>
-            </div>
+                <a href="#fixed-tab-1" class="mdl-layout__tab is-active">My Food</a>
+                {% if request.user.is_anonymous %}
+                    <a href="#fixed-tab-2" class="mdl-layout__tab">Authentication</a>
+                {% endif %}
+                </div>
         </header>
         <main class="mdl-layout__content mdl-color--grey-100">
-            <section class="mdl-layout__tab-panel is-active" id="fixed-tab-1">
+                <section class="mdl-layout__tab-panel is-active" id="fixed-tab-1">
+                        <div class="page-content">
+                            <!-- Your content goes here -->
+
+                        </div>
+                    </section>
+            <section class="mdl-layout__tab-panel" id="fixed-tab-2">
                 <div class="page-content">
                     <!-- Your content goes here -->
                     <div class="mdl-grid">
@@ -45,11 +64,7 @@
                    
                 </div>
             </section>
-            <section class="mdl-layout__tab-panel" id="fixed-tab-3">
-                <div class="page-content">
-                    <!-- Your content goes here -->
-                </div>
-            </section>
+           
         </main>
     </div>
     </div> <!-- For bgimg-->

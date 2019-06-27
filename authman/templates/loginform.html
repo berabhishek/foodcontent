@@ -32,10 +32,14 @@
         </div>
         <div class="mdl-grid">
                 <div class="mdl-cell mdl-cell--4-col">
-                        <img  src="https://developers.google.com/identity/images/btn_google_signin_dark_normal_web.png" alt="Google sign-in button with blue background" class="attempt-right">
+                        <img style="cursor: pointer;" onclick="google_redirect()" src="https://developers.google.com/identity/images/btn_google_signin_dark_normal_web.png" alt="Google sign-in button with blue background" class="attempt-right">
                 </div>
         </div>
-
+        <script>
+            function google_redirect() {
+                window.location = "{% url 'social:begin' 'google-oauth2' %}";
+            };
+        </script>
         </div>
     </main>
 </div>
