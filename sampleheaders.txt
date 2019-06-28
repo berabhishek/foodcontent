@@ -1,0 +1,1 @@
+LOAD DATA INFILE '/var/lib/mysql-files/foodfacts5k.tsv' INTO TABLE foodfacttable;

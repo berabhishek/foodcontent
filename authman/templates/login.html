@@ -9,7 +9,8 @@
     <link defer rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
     <link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.indigo-purple.min.css" />
     <script defer src="https://code.getmdl.io/1.3.0/material.min.js"></script>
-    <title>{{request.user }} Break My Food - Login</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <title>Break My Food</title>
 </head>
 
 <body>
@@ -19,7 +20,11 @@
         <header class="mdl-layout__header">
             <div class="mdl-layout__header-row">
                 <!-- Title -->
-                <span class="mdl-layout-title">Break My Food</span>
+                {% if not request.user.is_anonymous %}
+                    <span class="mdl-layout-title">Hi {{request.user.first_name}}</span>
+                {% else %}
+                    <span class="mdl-layout-title">Break my food</span>
+                {% endif %}
                 <div class="mdl-layout-spacer"></div>
                 <!-- Navigation. We hide it in small screens. -->
                 {% if not request.user.is_anonymous %}
@@ -29,14 +34,22 @@
                         Logout
                     </a>
                 </nav>
+                {% else %}
+                <nav class="mdl-navigation mdl-layout--large-screen-only">
+                        <a class="mdl-navigation__link" href="{% url 'social:begin' 'google-oauth2' %}">
+                            <!-- <i class="material-icons">directions_run</i> -->
+                        <img style="cursor: pointer;" src="https://developers.google.com/identity/images/btn_google_signin_dark_normal_web.png" alt="Google sign-in button with blue background" class="attempt-right">
+                            
+                        </a>
+                    </nav>
                 {% endif %}
             </div>
           
             <!-- Tabs -->
             <div class="mdl-layout__tab-bar mdl-js-ripple-effect">
                 <a href="#fixed-tab-1" class="mdl-layout__tab is-active">My Food</a>
-                {% if request.user.is_anonymous %}
-                    <a href="#fixed-tab-2" class="mdl-layout__tab">Authentication</a>
+                {% if not request.user.is_anonymous %}
+                    <a href="#fixed-tab-2" class="mdl-layout__tab">Add new food</a>
                 {% endif %}
                 </div>
         </header>
@@ -44,30 +57,44 @@
                 <section class="mdl-layout__tab-panel is-active" id="fixed-tab-1">
                         <div class="page-content">
                             <!-- Your content goes here -->
-
+                            {% include 'viewdata.html' %}
+                           
                         </div>
                     </section>
             <section class="mdl-layout__tab-panel" id="fixed-tab-2">
                 <div class="page-content">
-                    <!-- Your content goes here -->
-                    <div class="mdl-grid">
-                        <div class="mdl-cell mdl-cell--1-col"></div>
-                        <div class="mdl-cell mdl-cell--4-col">
-                            {% include 'loginform.html' %}
+                    <form action="/auth/add_data" method="POST">
+                            {% csrf_token %}
+                            {% for foodelement in foodform.visible_fields %}
+                            <div class="mdl-grid">
+                                <div class="mdl-cell mdl-cell--6-col">
+                                    {{foodelement.label_tag}}
+                                </div>
+                                <div class="mdl-cell mdl-cell--6-col">
+                                    {{foodelement}}
+                                </div>
+                            </div>
+                        {% endfor %}
+                        <div class="mdl-grid">
+                                <div class="mdl-cell mdl-cell--4-col"></div>
+
+                                <div class="mdl-cell mdl-cell--4-col">
+                                        <input type="submit" class="mdl-button mdl-button--colored mdl-js-button mdl-button--raised mdl-js-ripple-effect" value="Add Data">
+                                </div>
+                                <div class="mdl-cell mdl-cell--4-col">
+                                        <input type="reset" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect" value="Clear Data">
+                                </div>
                         </div>
-                        <div class="mdl-cell mdl-cell--2-col"></div>
-                        <div class="mdl-cell mdl-cell--4-col">
-                            {% include 'signupform.html' %}
-                        </div>
-                        <div class="mdl-cell mdl-cell--1-col"></div>
-                    </div>
-                   
+
+                    </form>
+                       
                 </div>
             </section>
            
         </main>
     </div>
     </div> <!-- For bgimg-->
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 </body>
 
 </html>
