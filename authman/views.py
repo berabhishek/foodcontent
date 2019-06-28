@@ -2,14 +2,10 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.forms import ModelForm
 from .models import Foodfacttable
 from django.urls import reverse
+from django.http import Http404, JsonResponse
+from django.forms.models import model_to_dict
 
 class Foodfactform(ModelForm):
-    def __init__(self, *args, **kwargs):
-        super(Foodfactform, self).__init__(*args, **kwargs)
-        instance = getattr(self, 'instance', None)
-        if instance and instance.pk:
-            self.fields["product_name"].widget.attrs["readonly"] = True
-
     def make_disable(self):
         for field in self.fields.keys():
            self.fields[field].widget.attrs["readonly"] = True
@@ -46,9 +42,19 @@ def login_page(request, product_name=None):
 
 def add_data(request):
     if request.method == "POST":
-        instance = get_object_or_404(Foodfacttable, pk=request.POST["product_name"])
         if not request.user.is_anonymous:
-            foodform = Foodfactform(data=request.POST, instance=instance)
+            try:
+                instance = get_object_or_404(Foodfacttable, pk=request.POST["product_name"])
+                foodform = Foodfactform(data=request.POST, instance=instance)
+            except Http404:
+                foodform = Foodfactform(data=request.POST)
             if foodform.is_valid():
                 foodform.save(commit=True)
     return redirect(reverse("login"))
+
+def table_api(request, product_name=None):
+    try:
+        my_object = get_object_or_404(Foodfacttable, pk=product_name)
+        return JsonResponse(model_to_dict(my_object))
+    except Http404:
+        return JsonResponse({"status": "error", "message":"The product_name is incorrect"})

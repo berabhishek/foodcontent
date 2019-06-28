@@ -5,9 +5,11 @@ from django.contrib.auth.views import LogoutView
 from django.conf import settings
 
 urlpatterns = [
+    path('api/',views.table_api, name="api"),
+    path('api/<str:product_name>/',views.table_api, name="api"),
     path("<str:product_name>/", views.login_page, name="view_product"),
     path("", views.login_page, name="login"),
     path('auth', include('social_django.urls', namespace='social')),
     path('logout', LogoutView.as_view(),{'next_page': settings.LOGOUT_REDIRECT_URL}, name = "logout"),
-    path('add_data', views.add_data, name="add_data")
+    path('add_data', views.add_data, name="add_data"),
 ]

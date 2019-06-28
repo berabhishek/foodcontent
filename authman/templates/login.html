@@ -22,7 +22,7 @@
             <div class="mdl-layout__header-row">
                 <!-- Title -->
                 {% if not request.user.is_anonymous %}
-                    <span class="mdl-layout-title">Hi {{request.user.first_name}}</span>
+                    <span class="mdl-layout-title">Hi {{request.user.last_name}}, {{request.user.first_name}}</span>
                 {% else %}
                     <span class="mdl-layout-title">Break my food</span>
                 {% endif %}
@@ -67,10 +67,10 @@
                 <section class="mdl-layout__tab-panel is-active" id="fixed-tab-1">
                         <div class="page-content">
                             <!-- Your content goes here -->
-                            <form action="/auth/add_data" method=POST>
+                            <form action="/add_data" method=POST>
                                 {%csrf_token%}
                                 {% include 'viewdata.html' %}
-                                {% if not request.user.is_anonymous %}
+                                {% if not request.user.is_anonymous and food is not None%}
                                 <div class="mdl-grid">
                                     <div class="mdl-cell mdl-cell--4-col"></div>
                                     
@@ -89,7 +89,7 @@
                     </section>
             <section class="mdl-layout__tab-panel" id="fixed-tab-2">
                 <div class="page-content">
-                    <form action="/auth/add_data" method="POST">
+                    <form action="/add_data" method="POST">
                             {% csrf_token %}
                           {% include 'foodtablerender.html' with foodform=foodform %}
                           <div class="mdl-grid">
@@ -117,10 +117,9 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
     <script>
             $(function(){
-                debugger;
                 $("#search_prod").on("keypress", function(event){
                     if(event.which === 13){
-                        window.location.href = window.location.origin + "/auth/"+event.currentTarget.value;
+                        window.location.href = window.location.origin +"/"+event.currentTarget.value;
                     }
                  });
             });

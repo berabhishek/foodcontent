@@ -6,7 +6,8 @@
 #   * Remove `managed = False` lines if you wish to allow Django to create, modify, and delete the table
 # Feel free to rename the models, but don't rename db_table values or field names.
 from django.db import models
-
+import random
+import string
 
 class Foodfacttable(models.Model):
     code = models.TextField(blank=True, null=True)
@@ -16,7 +17,7 @@ class Foodfacttable(models.Model):
     created_datetime = models.TextField(blank=True, null=True)
     last_modified_t = models.TextField(blank=True, null=True)
     last_modified_datetime = models.TextField(blank=True, null=True)
-    product_name = models.TextField(blank=True, null=True)
+    product_name = models.TextField(primary_key=True, default=''.join(random.choice(string.ascii_lowercase) for i in range(10)))
     generic_name = models.TextField(blank=True, null=True)
     quantity = models.TextField(blank=True, null=True)
     packaging = models.TextField(blank=True, null=True)
@@ -43,7 +44,7 @@ class Foodfacttable(models.Model):
     countries = models.TextField(blank=True, null=True)
     countries_tags = models.TextField(blank=True, null=True)
     countries_en = models.TextField(blank=True, null=True)
-    ingredients_longtext_null = models.TextField(db_column='ingredients_LONGTEXT null', blank=True, null=True)  # Field name made lowercase. Field renamed to remove unsuitable characters.
+    ingredients_text = models.TextField(blank=True, null=True)
     allergens = models.TextField(blank=True, null=True)
     allergens_en = models.TextField(blank=True, null=True)
     traces = models.TextField(blank=True, null=True)
@@ -73,76 +74,76 @@ class Foodfacttable(models.Model):
     image_url = models.TextField(blank=True, null=True)
     image_small_url = models.TextField(blank=True, null=True)
     energy_100g = models.TextField(blank=True, null=True)
-    energy_from_fat_100g = models.TextField(blank=True, null=True)
+    energy_from_fat_100g = models.TextField(db_column='energy-from-fat_100g', blank=True, null=True)  # Field renamed to remove unsuitable characters.
     fat_100g = models.TextField(blank=True, null=True)
-    saturated_fat_100g = models.TextField(blank=True, null=True)
-    butyric_acid_100g = models.TextField(blank=True, null=True)
-    caproic_acid_100g = models.TextField(blank=True, null=True)
-    caprylic_acid_100g = models.TextField(blank=True, null=True)
-    capric_acid_100g = models.TextField(blank=True, null=True)
-    lauric_acid_100g = models.TextField(blank=True, null=True)
-    myristic_acid_100g = models.TextField(blank=True, null=True)
-    palmitic_acid_100g = models.TextField(blank=True, null=True)
-    stearic_acid_100g = models.TextField(blank=True, null=True)
-    arachidic_acid_100g = models.TextField(blank=True, null=True)
-    behenic_acid_100g = models.TextField(blank=True, null=True)
-    lignoceric_acid_100g = models.TextField(blank=True, null=True)
-    cerotic_acid_100g = models.TextField(blank=True, null=True)
-    montanic_acid_100g = models.TextField(blank=True, null=True)
-    melissic_acid_100g = models.TextField(blank=True, null=True)
-    monounsaturated_fat_100g = models.TextField(blank=True, null=True)
-    polyunsaturated_fat_100g = models.TextField(blank=True, null=True)
-    omega_3_fat_100g = models.TextField(blank=True, null=True)
-    alpha_linolenic_acid_100g = models.TextField(blank=True, null=True)
-    eicosapentaenoic_acid_100g = models.TextField(blank=True, null=True)
-    docosahexaenoic_acid_100g = models.TextField(blank=True, null=True)
-    omega_6_fat_100g = models.TextField(blank=True, null=True)
-    linoleic_acid_100g = models.TextField(blank=True, null=True)
-    arachidonic_acid_100g = models.TextField(blank=True, null=True)
-    gamma_linolenic_acid_100g = models.TextField(blank=True, null=True)
-    dihomo_gamma_linolenic_acid_100g = models.TextField(blank=True, null=True)
-    omega_9_fat_100g = models.TextField(blank=True, null=True)
-    oleic_acid_100g = models.TextField(blank=True, null=True)
-    elaidic_acid_100g = models.TextField(blank=True, null=True)
-    gondoic_acid_100g = models.TextField(blank=True, null=True)
-    mead_acid_100g = models.TextField(blank=True, null=True)
-    erucic_acid_100g = models.TextField(blank=True, null=True)
-    nervonic_acid_100g = models.TextField(blank=True, null=True)
-    trans_fat_100g = models.TextField(blank=True, null=True)
+    saturated_fat_100g = models.TextField(db_column='saturated-fat_100g', blank=True, null=True)  # Field renamed to remove unsuitable characters.
+    field_butyric_acid_100g = models.TextField(db_column='-butyric-acid_100g', blank=True, null=True)  # Field renamed to remove unsuitable characters. Field renamed because it started with '_'.
+    field_caproic_acid_100g = models.TextField(db_column='-caproic-acid_100g', blank=True, null=True)  # Field renamed to remove unsuitable characters. Field renamed because it started with '_'.
+    field_caprylic_acid_100g = models.TextField(db_column='-caprylic-acid_100g', blank=True, null=True)  # Field renamed to remove unsuitable characters. Field renamed because it started with '_'.
+    field_capric_acid_100g = models.TextField(db_column='-capric-acid_100g', blank=True, null=True)  # Field renamed to remove unsuitable characters. Field renamed because it started with '_'.
+    field_lauric_acid_100g = models.TextField(db_column='-lauric-acid_100g', blank=True, null=True)  # Field renamed to remove unsuitable characters. Field renamed because it started with '_'.
+    field_myristic_acid_100g = models.TextField(db_column='-myristic-acid_100g', blank=True, null=True)  # Field renamed to remove unsuitable characters. Field renamed because it started with '_'.
+    field_palmitic_acid_100g = models.TextField(db_column='-palmitic-acid_100g', blank=True, null=True)  # Field renamed to remove unsuitable characters. Field renamed because it started with '_'.
+    field_stearic_acid_100g = models.TextField(db_column='-stearic-acid_100g', blank=True, null=True)  # Field renamed to remove unsuitable characters. Field renamed because it started with '_'.
+    field_arachidic_acid_100g = models.TextField(db_column='-arachidic-acid_100g', blank=True, null=True)  # Field renamed to remove unsuitable characters. Field renamed because it started with '_'.
+    field_behenic_acid_100g = models.TextField(db_column='-behenic-acid_100g', blank=True, null=True)  # Field renamed to remove unsuitable characters. Field renamed because it started with '_'.
+    field_lignoceric_acid_100g = models.TextField(db_column='-lignoceric-acid_100g', blank=True, null=True)  # Field renamed to remove unsuitable characters. Field renamed because it started with '_'.
+    field_cerotic_acid_100g = models.TextField(db_column='-cerotic-acid_100g', blank=True, null=True)  # Field renamed to remove unsuitable characters. Field renamed because it started with '_'.
+    field_montanic_acid_100g = models.TextField(db_column='-montanic-acid_100g', blank=True, null=True)  # Field renamed to remove unsuitable characters. Field renamed because it started with '_'.
+    field_melissic_acid_100g = models.TextField(db_column='-melissic-acid_100g', blank=True, null=True)  # Field renamed to remove unsuitable characters. Field renamed because it started with '_'.
+    monounsaturated_fat_100g = models.TextField(db_column='monounsaturated-fat_100g', blank=True, null=True)  # Field renamed to remove unsuitable characters.
+    polyunsaturated_fat_100g = models.TextField(db_column='polyunsaturated-fat_100g', blank=True, null=True)  # Field renamed to remove unsuitable characters.
+    omega_3_fat_100g = models.TextField(db_column='omega-3-fat_100g', blank=True, null=True)  # Field renamed to remove unsuitable characters.
+    field_alpha_linolenic_acid_100g = models.TextField(db_column='-alpha-linolenic-acid_100g', blank=True, null=True)  # Field renamed to remove unsuitable characters. Field renamed because it started with '_'.
+    field_eicosapentaenoic_acid_100g = models.TextField(db_column='-eicosapentaenoic-acid_100g', blank=True, null=True)  # Field renamed to remove unsuitable characters. Field renamed because it started with '_'.
+    field_docosahexaenoic_acid_100g = models.TextField(db_column='-docosahexaenoic-acid_100g', blank=True, null=True)  # Field renamed to remove unsuitable characters. Field renamed because it started with '_'.
+    omega_6_fat_100g = models.TextField(db_column='omega-6-fat_100g', blank=True, null=True)  # Field renamed to remove unsuitable characters.
+    field_linoleic_acid_100g = models.TextField(db_column='-linoleic-acid_100g', blank=True, null=True)  # Field renamed to remove unsuitable characters. Field renamed because it started with '_'.
+    field_arachidonic_acid_100g = models.TextField(db_column='-arachidonic-acid_100g', blank=True, null=True)  # Field renamed to remove unsuitable characters. Field renamed because it started with '_'.
+    field_gamma_linolenic_acid_100g = models.TextField(db_column='-gamma-linolenic-acid_100g', blank=True, null=True)  # Field renamed to remove unsuitable characters. Field renamed because it started with '_'.
+    field_dihomo_gamma_linolenic_acid_100g = models.TextField(db_column='-dihomo-gamma-linolenic-acid_100g', blank=True, null=True)  # Field renamed to remove unsuitable characters. Field renamed because it started with '_'.
+    omega_9_fat_100g = models.TextField(db_column='omega-9-fat_100g', blank=True, null=True)  # Field renamed to remove unsuitable characters.
+    field_oleic_acid_100g = models.TextField(db_column='-oleic-acid_100g', blank=True, null=True)  # Field renamed to remove unsuitable characters. Field renamed because it started with '_'.
+    field_elaidic_acid_100g = models.TextField(db_column='-elaidic-acid_100g', blank=True, null=True)  # Field renamed to remove unsuitable characters. Field renamed because it started with '_'.
+    field_gondoic_acid_100g = models.TextField(db_column='-gondoic-acid_100g', blank=True, null=True)  # Field renamed to remove unsuitable characters. Field renamed because it started with '_'.
+    field_mead_acid_100g = models.TextField(db_column='-mead-acid_100g', blank=True, null=True)  # Field renamed to remove unsuitable characters. Field renamed because it started with '_'.
+    field_erucic_acid_100g = models.TextField(db_column='-erucic-acid_100g', blank=True, null=True)  # Field renamed to remove unsuitable characters. Field renamed because it started with '_'.
+    field_nervonic_acid_100g = models.TextField(db_column='-nervonic-acid_100g', blank=True, null=True)  # Field renamed to remove unsuitable characters. Field renamed because it started with '_'.
+    trans_fat_100g = models.TextField(db_column='trans-fat_100g', blank=True, null=True)  # Field renamed to remove unsuitable characters.
     cholesterol_100g = models.TextField(blank=True, null=True)
     carbohydrates_100g = models.TextField(blank=True, null=True)
     sugars_100g = models.TextField(blank=True, null=True)
-    sucrose_100g = models.TextField(blank=True, null=True)
-    glucose_100g = models.TextField(blank=True, null=True)
-    fructose_100g = models.TextField(blank=True, null=True)
-    lactose_100g = models.TextField(blank=True, null=True)
-    maltose_100g = models.TextField(blank=True, null=True)
-    maltodextrins_100g = models.TextField(blank=True, null=True)
+    field_sucrose_100g = models.TextField(db_column='-sucrose_100g', blank=True, null=True)  # Field renamed to remove unsuitable characters. Field renamed because it started with '_'.
+    field_glucose_100g = models.TextField(db_column='-glucose_100g', blank=True, null=True)  # Field renamed to remove unsuitable characters. Field renamed because it started with '_'.
+    field_fructose_100g = models.TextField(db_column='-fructose_100g', blank=True, null=True)  # Field renamed to remove unsuitable characters. Field renamed because it started with '_'.
+    field_lactose_100g = models.TextField(db_column='-lactose_100g', blank=True, null=True)  # Field renamed to remove unsuitable characters. Field renamed because it started with '_'.
+    field_maltose_100g = models.TextField(db_column='-maltose_100g', blank=True, null=True)  # Field renamed to remove unsuitable characters. Field renamed because it started with '_'.
+    field_maltodextrins_100g = models.TextField(db_column='-maltodextrins_100g', blank=True, null=True)  # Field renamed to remove unsuitable characters. Field renamed because it started with '_'.
     starch_100g = models.TextField(blank=True, null=True)
     polyols_100g = models.TextField(blank=True, null=True)
     fiber_100g = models.TextField(blank=True, null=True)
     proteins_100g = models.TextField(blank=True, null=True)
     casein_100g = models.TextField(blank=True, null=True)
-    serum_proteins_100g = models.TextField(blank=True, null=True)
+    serum_proteins_100g = models.TextField(db_column='serum-proteins_100g', blank=True, null=True)  # Field renamed to remove unsuitable characters.
     nucleotides_100g = models.TextField(blank=True, null=True)
     salt_100g = models.TextField(blank=True, null=True)
     sodium_100g = models.TextField(blank=True, null=True)
     alcohol_100g = models.TextField(blank=True, null=True)
-    vitamin_a_100g = models.TextField(blank=True, null=True)
-    beta_carotene_100g = models.TextField(blank=True, null=True)
-    vitamin_d_100g = models.TextField(blank=True, null=True)
-    vitamin_e_100g = models.TextField(blank=True, null=True)
-    vitamin_k_100g = models.TextField(blank=True, null=True)
-    vitamin_c_100g = models.TextField(blank=True, null=True)
-    vitamin_b1_100g = models.TextField(blank=True, null=True)
-    vitamin_b2_100g = models.TextField(blank=True, null=True)
-    vitamin_pp_100g = models.TextField(blank=True, null=True)
-    vitamin_b6_100g = models.TextField(blank=True, null=True)
-    vitamin_b9_100g = models.TextField(blank=True, null=True)
+    vitamin_a_100g = models.TextField(db_column='vitamin-a_100g', blank=True, null=True)  # Field renamed to remove unsuitable characters.
+    beta_carotene_100g = models.TextField(db_column='beta-carotene_100g', blank=True, null=True)  # Field renamed to remove unsuitable characters.
+    vitamin_d_100g = models.TextField(db_column='vitamin-d_100g', blank=True, null=True)  # Field renamed to remove unsuitable characters.
+    vitamin_e_100g = models.TextField(db_column='vitamin-e_100g', blank=True, null=True)  # Field renamed to remove unsuitable characters.
+    vitamin_k_100g = models.TextField(db_column='vitamin-k_100g', blank=True, null=True)  # Field renamed to remove unsuitable characters.
+    vitamin_c_100g = models.TextField(db_column='vitamin-c_100g', blank=True, null=True)  # Field renamed to remove unsuitable characters.
+    vitamin_b1_100g = models.TextField(db_column='vitamin-b1_100g', blank=True, null=True)  # Field renamed to remove unsuitable characters.
+    vitamin_b2_100g = models.TextField(db_column='vitamin-b2_100g', blank=True, null=True)  # Field renamed to remove unsuitable characters.
+    vitamin_pp_100g = models.TextField(db_column='vitamin-pp_100g', blank=True, null=True)  # Field renamed to remove unsuitable characters.
+    vitamin_b6_100g = models.TextField(db_column='vitamin-b6_100g', blank=True, null=True)  # Field renamed to remove unsuitable characters.
+    vitamin_b9_100g = models.TextField(db_column='vitamin-b9_100g', blank=True, null=True)  # Field renamed to remove unsuitable characters.
     folates_100g = models.TextField(blank=True, null=True)
-    vitamin_b12_100g = models.TextField(blank=True, null=True)
+    vitamin_b12_100g = models.TextField(db_column='vitamin-b12_100g', blank=True, null=True)  # Field renamed to remove unsuitable characters.
     biotin_100g = models.TextField(blank=True, null=True)
-    pantothenic_acid_100g = models.TextField(blank=True, null=True)
+    pantothenic_acid_100g = models.TextField(db_column='pantothenic-acid_100g', blank=True, null=True)  # Field renamed to remove unsuitable characters.
     silica_100g = models.TextField(blank=True, null=True)
     bicarbonate_100g = models.TextField(blank=True, null=True)
     potassium_100g = models.TextField(blank=True, null=True)
@@ -162,20 +163,17 @@ class Foodfacttable(models.Model):
     caffeine_100g = models.TextField(blank=True, null=True)
     taurine_100g = models.TextField(blank=True, null=True)
     ph_100g = models.TextField(blank=True, null=True)
-    fruits_vegetables_nuts_100g = models.TextField(blank=True, null=True)
-    fruits_vegetables_nuts_estimate_100g = models.TextField(blank=True, null=True)
-    collagen_meat_protein_ratio_100g = models.TextField(blank=True, null=True)
+    fruits_vegetables_nuts_100g = models.TextField(db_column='fruits-vegetables-nuts_100g', blank=True, null=True)  # Field renamed to remove unsuitable characters.
+    fruits_vegetables_nuts_estimate_100g = models.TextField(db_column='fruits-vegetables-nuts-estimate_100g', blank=True, null=True)  # Field renamed to remove unsuitable characters.
+    collagen_meat_protein_ratio_100g = models.TextField(db_column='collagen-meat-protein-ratio_100g', blank=True, null=True)  # Field renamed to remove unsuitable characters.
     cocoa_100g = models.TextField(blank=True, null=True)
     chlorophyl_100g = models.TextField(blank=True, null=True)
-    carbon_footprint_100g = models.TextField(blank=True, null=True)
-    nutrition_score_fr_100g = models.TextField(blank=True, null=True)
-    nutrition_score_uk_100g = models.TextField(blank=True, null=True)
-    glycemic_index_100g = models.TextField(blank=True, null=True)
-    water_hardness_100g = models.TextField(blank=True, null=True)
-    ids = models.CharField(primary_key=True, max_length=10)
+    carbon_footprint_100g = models.TextField(db_column='carbon-footprint_100g', blank=True, null=True)  # Field renamed to remove unsuitable characters.
+    nutrition_score_fr_100g = models.TextField(db_column='nutrition-score-fr_100g', blank=True, null=True)  # Field renamed to remove unsuitable characters.
+    nutrition_score_uk_100g = models.TextField(db_column='nutrition-score-uk_100g', blank=True, null=True)  # Field renamed to remove unsuitable characters.
+    glycemic_index_100g = models.TextField(db_column='glycemic-index_100g', blank=True, null=True)  # Field renamed to remove unsuitable characters.
+    water_hardness_100g = models.TextField(db_column='water-hardness_100g', blank=True, null=True)  # Field renamed to remove unsuitable characters.
 
     class Meta:
-        db_table = 'foodfacttable'
-
-    def __str__(self):
-        return self.product_name
+        managed = False
+        db_table = 'foodfacts'
