@@ -67,7 +67,23 @@
                 <section class="mdl-layout__tab-panel is-active" id="fixed-tab-1">
                         <div class="page-content">
                             <!-- Your content goes here -->
-                            {% include 'viewdata.html' %}
+                            <form action="/auth/add_data" method=POST>
+                                {%csrf_token%}
+                                {% include 'viewdata.html' %}
+                                {% if not request.user.is_anonymous %}
+                                <div class="mdl-grid">
+                                    <div class="mdl-cell mdl-cell--4-col"></div>
+                                    
+                                        <div class="mdl-cell mdl-cell--4-col">
+                                                <input type="submit" class="mdl-button mdl-button--colored mdl-js-button mdl-button--raised mdl-js-ripple-effect" value="Edit Data">
+                                        </div>
+                                        <div class="mdl-cell mdl-cell--4-col">
+                                                <input type="reset" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect" value="Clear Data">
+                                        </div>
+                                </div>
+                                {% endif %}
+                            </form>
+                            
                            
                         </div>
                     </section>
@@ -76,6 +92,16 @@
                     <form action="/auth/add_data" method="POST">
                             {% csrf_token %}
                           {% include 'foodtablerender.html' with foodform=foodform %}
+                          <div class="mdl-grid">
+                                <div class="mdl-cell mdl-cell--4-col"></div>
+                            
+                                <div class="mdl-cell mdl-cell--4-col">
+                                        <input type="submit" class="mdl-button mdl-button--colored mdl-js-button mdl-button--raised mdl-js-ripple-effect" value="Add Data">
+                                </div>
+                                <div class="mdl-cell mdl-cell--4-col">
+                                        <input type="reset" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect" value="Clear Data">
+                                </div>
+                            </div>
                     </form>
                        
                 </div>
