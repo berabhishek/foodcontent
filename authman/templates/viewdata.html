@@ -1,5 +1,5 @@
-{% if list_show %}
-    {{foods}}
+{% if food == None %}
+    No Product Found
 {% else %}
-    {{foods}}
+    {% include 'foodtablerender.html' with foodform=food %}
 {% endif %}

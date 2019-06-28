@@ -1,0 +1,20 @@
+{% for foodelement in foodform.visible_fields %}
+<div class="mdl-grid">
+    <div class="mdl-cell mdl-cell--6-col">
+        {{foodelement.label_tag}}
+    </div>
+    <div class="mdl-cell mdl-cell--6-col">
+        {{foodelement}}
+    </div>
+</div>
+{% endfor %}
+<div class="mdl-grid">
+    <div class="mdl-cell mdl-cell--4-col"></div>
+
+    <div class="mdl-cell mdl-cell--4-col">
+            <input type="submit" class="mdl-button mdl-button--colored mdl-js-button mdl-button--raised mdl-js-ripple-effect" value="Add Data">
+    </div>
+    <div class="mdl-cell mdl-cell--4-col">
+            <input type="reset" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect" value="Clear Data">
+    </div>
+</div>

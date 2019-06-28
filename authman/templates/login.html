@@ -11,6 +11,7 @@
     <script defer src="https://code.getmdl.io/1.3.0/material.min.js"></script>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
     <title>Break My Food</title>
+    
 </head>
 
 <body>
@@ -27,6 +28,15 @@
                 {% endif %}
                 <div class="mdl-layout-spacer"></div>
                 <!-- Navigation. We hide it in small screens. -->
+                        <div class="mdl-textfield mdl-js-textfield mdl-textfield--expandable">
+                          <label class="mdl-button mdl-js-button mdl-button--icon" for="search_prod">
+                            <i class="material-icons">search</i>
+                          </label>
+                          <div  class="mdl-textfield__expandable-holder">
+                            <input class="mdl-textfield__input" type="text" id="search_prod">
+                            <label class="mdl-textfield__label" for="sample-expandable">Expandable Input</label>
+                          </div>
+                        </div>
                 {% if not request.user.is_anonymous %}
                 <nav class="mdl-navigation mdl-layout--large-screen-only">
                     <a class="mdl-navigation__link" href="{% url 'logout' %}">
@@ -65,27 +75,7 @@
                 <div class="page-content">
                     <form action="/auth/add_data" method="POST">
                             {% csrf_token %}
-                            {% for foodelement in foodform.visible_fields %}
-                            <div class="mdl-grid">
-                                <div class="mdl-cell mdl-cell--6-col">
-                                    {{foodelement.label_tag}}
-                                </div>
-                                <div class="mdl-cell mdl-cell--6-col">
-                                    {{foodelement}}
-                                </div>
-                            </div>
-                        {% endfor %}
-                        <div class="mdl-grid">
-                                <div class="mdl-cell mdl-cell--4-col"></div>
-
-                                <div class="mdl-cell mdl-cell--4-col">
-                                        <input type="submit" class="mdl-button mdl-button--colored mdl-js-button mdl-button--raised mdl-js-ripple-effect" value="Add Data">
-                                </div>
-                                <div class="mdl-cell mdl-cell--4-col">
-                                        <input type="reset" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect" value="Clear Data">
-                                </div>
-                        </div>
-
+                          {% include 'foodtablerender.html' with foodform=foodform %}
                     </form>
                        
                 </div>
@@ -94,7 +84,21 @@
         </main>
     </div>
     </div> <!-- For bgimg-->
+    <script
+  src="https://code.jquery.com/jquery-3.4.1.min.js"
+  integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
+  crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    <script>
+            $(function(){
+                debugger;
+                $("#search_prod").on("keypress", function(event){
+                    if(event.which === 13){
+                        window.location.href = window.location.origin + "/auth/"+event.currentTarget.value;
+                    }
+                 });
+            });
+        </script>
 </body>
 
 </html>

@@ -172,7 +172,10 @@ class Foodfacttable(models.Model):
     nutrition_score_uk_100g = models.TextField(blank=True, null=True)
     glycemic_index_100g = models.TextField(blank=True, null=True)
     water_hardness_100g = models.TextField(blank=True, null=True)
+    ids = models.CharField(primary_key=True, max_length=10)
 
     class Meta:
-        # managed = False
         db_table = 'foodfacttable'
+
+    def __str__(self):
+        return self.product_name
